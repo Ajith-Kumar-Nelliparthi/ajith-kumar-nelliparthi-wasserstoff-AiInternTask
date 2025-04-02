@@ -97,12 +97,36 @@ Before running the project, ensure you have the following:
 - **Authentication**: Successfully set up OAuth 2.0 with Gmail API using `credentials.json` and saved tokens in `token.json`.
 - **Email Fetching**: Retrieved the latest 20 emails from the inbox, parsed their subject, sender, and body, and displayed them in the terminal.
 
+# Day 2: Email Parsing and Storage
+
+## Objective
+- Parse essential email fields (sender, recipient, subject, timestamp, body, attachments).
+- Store parsed data in an SQLite database with threading support.
+
+## What Was Completed
+- **Parsing**: Extracted sender, recipient, subject, timestamp, body, and attachments from Gmail messages.
+- **Storage**: Created an SQLite database (`emails.db`) with tables for emails and attachments.
+- **Threading**: Used `threadId` to link replies to original emails.
+- **Class-Based Design**: Implemented `EmailManager` class for modularity.
+
+## Setup Instructions
+- Same as Day 1 (see above).
+- No additional libraries required beyond Day 1 setup.
+
+## Running the Script
+1. Place `day_02_email_parsing_storing.py` in the `src/` folder with `credentials.json`.
+2. Run:
+   ```bash
+   python day_02_email_parsing_storing.py
+
 ## Project Structure
 ```
 src/
 ├── day_01_email_integration.py  # Main script for email integration
-├── credentials.json             # Google Cloud OAuth credentials
-├── token.json                   # Auto-generated after first authentication
-└── requiements.txt
+├── day_02_email_parsing_storing.py  # Day 2 Script
+├── credentials.json               # Google Cloud OAuth credentials
+├── token.json                     # Auto-generated after first 
+├── emails.db                      # sqlite database
+└── requiements.txt                # pip requirements
 └── README.md                    
 ```

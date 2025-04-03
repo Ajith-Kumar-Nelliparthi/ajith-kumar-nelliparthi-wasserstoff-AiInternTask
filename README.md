@@ -153,7 +153,18 @@ pip install openai
 ```
 Update email_analyzer.py with your API key and GPT calls.
 
+### Running the Scripts
+Context Understanding:
+```
+   python email_analyzer.py
+```
+Analyzes a hardcoded thread/email (e.g., '195f5fe2b09c8fd1').
 
+Output example:
+
+![alt text](<Screenshot 2025-04-03 113246.png>)
+
+![alt text](<Screenshot 2025-04-03 113901.png>)
 
 ## Project Structure
 ```

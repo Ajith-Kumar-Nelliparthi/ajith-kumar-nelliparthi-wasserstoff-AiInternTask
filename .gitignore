@@ -176,3 +176,4 @@ cython_debug/
 credentials.json
 token.json
 emails.db
+.env

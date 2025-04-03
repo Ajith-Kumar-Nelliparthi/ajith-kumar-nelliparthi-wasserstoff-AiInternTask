@@ -119,11 +119,47 @@ Before running the project, ensure you have the following:
    ```bash
    python day_02_email_parsing_storing.py
 
+### Objectives
+1. **Context Understanding with LLM**: Use a Transformer-based model to summarize email threads and infer intent.
+2. **Web Search Integration**: Add web search capability to answer email queries using Google Custom Search API.
+
+### What Was Completed
+- **Task 3: EmailAnalyzer Class** (`email_analyzer.py`):
+  - **Implementation**: Uses `facebook/bart-large-cnn` for summarization and `distilbert-base-uncased-finetuned-sst-2-english` for intent inference (sentiment-based).
+  - **Functionality**: Summarizes email threads and infers intent (e.g., confirmation, request) from `emails.db`.
+  - **Limitations**:
+    - **Lack of Accuracy**: The intent inference relies on sentiment (POSITIVE/NEGATIVE), which isn’t precise for email-specific intents (e.g., distinguishing confirmation from rejection). The example output labeled "Your application has been submitted. Good luck!" as "negative," likely misinterpreting neutral content.
+    - **Time-Consuming**: Downloading large models (e.g., 1.63 GB for BART) and running on CPU is slow (5–15 minutes for initial setup, plus processing time).
+  - **Alternative**: If you have an OpenAI API key, you can replace the Transformer-based approach with GPT-3.5/4 for faster, more accurate intent detection and summarization. Modify `email_analyzer.py` to use the OpenAI client library instead of `transformers`.
+
+### Setup Instructions
+- **General Dependencies**:
+  ```bash
+  pip install google-api-python-client html2text
+
+### Task 3 (Context Understanding):
+Install:
+```
+pip install transformers torch
+```
+
+### Note: Initial run downloads large models (~1.9 GB total), requiring significant time and disk space.
+
+Optional (OpenAI): If using GPT, install openai:
+```
+pip install openai
+```
+Update email_analyzer.py with your API key and GPT calls.
+
+
+
 ## Project Structure
 ```
 src/
 ├── day_01_email_integration.py  # Main script for email integration
+├── gmail_auth.py                # OAuth 2.0 authentication class
 ├── day_02_email_parsing_storing.py  # Day 2 Script
+├── email_analyzer.py                # context understanding with LLM
 ├── credentials.json               # Google Cloud OAuth credentials
 ├── token.json                     # Auto-generated after first 
 ├── emails.db                      # sqlite database

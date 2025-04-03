@@ -3,4 +3,6 @@ google-auth-httplib2
 google-api-python-client
 nltk 
 sqlite3
-
+transformers
+torch
+html2text

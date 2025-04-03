@@ -126,6 +126,7 @@ Before running the project, ensure you have the following:
 2. **Web Search Integration**: Add web search capability to answer email queries using Google Custom Search API.
 
 ### What Was Completed
+
 - **Task 3: EmailAnalyzer Class** (`email_analyzer.py`):
   - **Implementation**: Uses `facebook/bart-large-cnn` for summarization and `distilbert-base-uncased-finetuned-sst-2-english` for intent inference (sentiment-based).
   - **Functionality**: Summarizes email threads and infers intent (e.g., confirmation, request) from `emails.db`.
@@ -133,6 +134,10 @@ Before running the project, ensure you have the following:
     - **Lack of Accuracy**: The intent inference relies on sentiment (POSITIVE/NEGATIVE), which isn’t precise for email-specific intents (e.g., distinguishing confirmation from rejection). The example output labeled "Your application has been submitted. Good luck!" as "negative," likely misinterpreting neutral content.
     - **Time-Consuming**: Downloading large models (e.g., 1.63 GB for BART) and running on CPU is slow (5–15 minutes for initial setup, plus processing time).
   - **Alternative**: If you have an OpenAI API key, you can replace the Transformer-based approach with GPT-3.5/4 for faster, more accurate intent detection and summarization. Modify `email_analyzer.py` to use the OpenAI client library instead of `transformers`.
+
+- **Task 4: WebSearchAssistant Class** (`web_search_assistant.py`):
+  - Integrates Google Custom Search API to answer email questions.
+  - Filters results by detecting queries in email content.
 
 ### Setup Instructions
 - **General Dependencies**:
@@ -153,8 +158,15 @@ pip install openai
 ```
 Update email_analyzer.py with your API key and GPT calls.
 
+For Task 4:
+Get Google Custom Search API key and CX ID from [Google Cloud Console](https://console.cloud.google.com/) and [cse.google.com](https://programmablesearchengine.google.com/controlpanel/all).
+
+Update web_search_assistant.py with your API key and CX ID.
+
+
+
 ### Running the Scripts
-Context Understanding:
+1. Context Understanding:
 ```
    python email_analyzer.py
 ```
@@ -166,6 +178,16 @@ Output example:
 
 ![alt text](<Screenshot 2025-04-03 113901.png>)
 
+2. Web Search
+```
+python web_search_assistant.py
+```
+Processes a hardcoded email (e.g., '195f6012a4f6f310') for queries.
+
+
+
+
+
 ## Project Structure
 ```
 src/
@@ -173,6 +195,7 @@ src/
 ├── gmail_auth.py                # OAuth 2.0 authentication class
 ├── day_02_email_parsing_storing.py  # Day 2 Script
 ├── email_analyzer.py                # context understanding with LLM
+├── web_search_assistant.py          # Web search with Google Custom Search API
 ├── credentials.json               # Google Cloud OAuth credentials
 ├── token.json                     # Auto-generated after first 
 ├── emails.db                      # sqlite database

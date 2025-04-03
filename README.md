@@ -97,7 +97,7 @@ Before running the project, ensure you have the following:
 - **Authentication**: Successfully set up OAuth 2.0 with Gmail API using `credentials.json` and saved tokens in `token.json`.
 - **Email Fetching**: Retrieved the latest 20 emails from the inbox, parsed their subject, sender, and body, and displayed them in the terminal.
 
-# Day 2: Email Parsing and Storage
+## Day 2: Email Parsing and Storage
 
 ## Objective
 - Parse essential email fields (sender, recipient, subject, timestamp, body, attachments).
@@ -118,6 +118,8 @@ Before running the project, ensure you have the following:
 2. Run:
    ```bash
    python day_02_email_parsing_storing.py
+
+## Day 3: Email Analyzer and Web Search
 
 ### Objectives
 1. **Context Understanding with LLM**: Use a Transformer-based model to summarize email threads and infer intent.
@@ -143,7 +145,7 @@ Install:
 pip install transformers torch
 ```
 
-### Note: Initial run downloads large models (~1.9 GB total), requiring significant time and disk space.
+Note: Initial run downloads large models (~1.9 GB total), requiring significant time and disk space.
 
 Optional (OpenAI): If using GPT, install openai:
 ```

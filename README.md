@@ -184,7 +184,9 @@ python web_search_assistant.py
 ```
 Processes a hardcoded email (e.g., '195f6012a4f6f310') for queries.
 
+Output example:
 
+![alt text](<Screenshot 2025-04-03 150240.png>)
 
 
 

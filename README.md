@@ -227,7 +227,6 @@ SLACK_BOT_TOKEN=xoxb-your-slack-bot-token
 - Sends a notification to ```#general``` (or your specified channel) for email 195fafee3c89c982 if deemed important.
 
 Output example:
-
 ![alt text](<Screenshot 2025-04-04 153211.png>)
 
 
@@ -239,7 +238,7 @@ src/
 ├── day_02_email_parsing_storing.py  # Day 2 Script
 ├── email_analyzer.py                # context understanding with LLM
 ├── web_search_assistant.py          # Web search with Google Custom Search API
-├── slack_notifier.py               # Slack notification integration
+├── slack_notifier.py               # Slack notification integration 
 ├── credentials.json               # Google Cloud OAuth credentials
 ├── token.json                     # Auto-generated after first 
 ├── emails.db                      # sqlite database

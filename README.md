@@ -189,6 +189,47 @@ Output example:
 ![alt text](<Screenshot 2025-04-03 150240.png>)
 
 
+## Day 4: Slack Integration
+
+### Objective
+- **Tool Integration – Slack**: Integrate Slack’s API to forward notifications about important emails to a workspace/channel/user using `chat.postMessage`.
+
+### What Was Completed
+- **Task5: SlackNotifier Class** (`slack_notifier.py`):
+  - **Implementation**: Uses Slack Web API via `slack-sdk` to send messages with a bot token.
+  - **Functionality**: 
+    - Identifies "important" emails based on sender (e.g., `@indeed.com`) or subject keywords (e.g., "urgent").
+    - Sends a Slack message to a specified channel with email sender, subject, summary (from `EmailAnalyzer`), intent, and body snippet.
+  - **Security**: Bot token stored in `.env`, not hardcoded.
+  - **OAuth Scope**: Requires `chat:write` for the Slack bot.
+
+Slack Configuration:
+- Create a Slack app at (api.slack.com/apps)[https://api.slack.com/apps]:
+   - Name: "EmailAssistantBot", Workspace: Your workspace.
+
+- Add scope: OAuth & Permissions > Scopes > Bot Token Scopes > chat:write.
+
+- Install app to workspace, copy Bot User OAuth Token (e.g., xoxb-...).
+
+- Invite bot to channel (e.g., /invite @EmailAssistantBot in #general).
+- Update .env
+```
+GOOGLE_API_KEY=your_google_api_key
+GOOGLE_CX_ID=your_cx_id
+SLACK_BOT_TOKEN=xoxb-your-slack-bot-token
+```
+### Running the Script
+- Slack Notification:
+```
+   python slack_notifier.py
+```
+
+- Sends a notification to ```#general``` (or your specified channel) for email 195fafee3c89c982 if deemed important.
+
+Output example:
+
+![alt text](<Screenshot 2025-04-04 153211.png>)
+
 
 ## Project Structure
 ```
@@ -198,6 +239,7 @@ src/
 ├── day_02_email_parsing_storing.py  # Day 2 Script
 ├── email_analyzer.py                # context understanding with LLM
 ├── web_search_assistant.py          # Web search with Google Custom Search API
+├── slack_notifier.py               # Slack notification integration
 ├── credentials.json               # Google Cloud OAuth credentials
 ├── token.json                     # Auto-generated after first 
 ├── emails.db                      # sqlite database

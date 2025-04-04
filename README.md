@@ -204,7 +204,7 @@ Output example:
   - **OAuth Scope**: Requires `chat:write` for the Slack bot.
 
 Slack Configuration:
-- Create a Slack app at (api.slack.com/apps)[https://api.slack.com/apps]:
+- Create a Slack app at [api.slack.com/apps](https://api.slack.com/apps):
    - Name: "EmailAssistantBot", Workspace: Your workspace.
 
 - Add scope: OAuth & Permissions > Scopes > Bot Token Scopes > chat:write.

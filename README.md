@@ -230,6 +230,52 @@ Output example:
 ![alt text](<Screenshot 2025-04-04 153211.png>)
 
 
+## Day 5: Calendar Integration
+- **Objective**: Incorporate Google Calendar scheduling to detect meeting-related emails and create events.
+- **Task: CalendarScheduler Class** (`calendar_scheduler.py`):
+  - **Implementation**: Uses Google Calendar API to create events; leverages `EmailAnalyzer` for intent detection.
+  - **Functionality**:
+    - Detects scheduling intent (e.g., "meeting on Friday") with keywords and basic parsing.
+    - Extracts event details (title, date, time) and adds a 1-hour event to the primary calendar.
+  - **Limitations**: Basic parsing is rudimentary; enhance with OpenAI GPT for precise extraction.
+  - **Authentication**: Reuses `GmailAuthenticator` with added Calendar scope.
+
+1. Enable Google Calendar API:
+- In Google Cloud Console, select email-assistant.
+- Enable "Google Calendar API".
+
+2. Update OAuth Scopes:
+- Go to APIs & Services > OAuth consent screen.
+- Click Edit App, go to Data Access or Scopes.
+- Click Add or Remove Scopes, add ```https://www.googleapis.com/auth/calendar.events```.
+- Save changes.
+
+3. Update credentials.json:
+- In APIs & Services > Credentials, download updated OAuth 2.0 Client ID.
+- Replace src/credentials.json.
+
+4. Re-authenticate:
+- Delete src/token.json
+``` del src\token.json```
+- Run any script (e.g., calendar_scheduler.py) to re-authenticate with new scopes.
+
+5. Update gmail_auth.py:
+- Added scope:
+``` 
+self.SCOPES = [
+    'https://www.googleapis.com/auth/gmail.readonly',
+    'https://www.googleapis.com/auth/calendar.events'
+]
+```
+
+### Running the Scripts
+
+``` python calendar_scheduler.py ```
+` Creates an event for email 195fafee3c89c982 if scheduling intent is detected.
+
+
+
+
 ## Project Structure
 ```
 src/
@@ -239,6 +285,7 @@ src/
 ├── email_analyzer.py                # context understanding with LLM
 ├── web_search_assistant.py          # Web search with Google Custom Search API
 ├── slack_notifier.py               # Slack notification integration 
+├── calendar_scheduler.py           # Calendar scheduling integration
 ├── credentials.json               # Google Cloud OAuth credentials
 ├── token.json                     # Auto-generated after first 
 ├── emails.db                      # sqlite database

@@ -17,6 +17,50 @@ and schedule events based on email content.
 - **Day 5: Calendar Scheduling**: Detects scheduling intent and creates Google Calendar events.
 - **Day 6: Automated Replies**: Drafts and sends email replies, with auto-send for trusted senders and manual confirmation otherwise.
 
+## Architecture
+### Data Flow
+1. **Email Fetching**: `email_parser.py` retrieves emails via Gmail API and stores them in `emails.db`.
+2. **Analysis**: `email_analyzer.py` uses LLMs to summarize threads and infer intent.
+3. **Actions**: `email_drafter.py` orchestrates:
+   - Web searches (`web_search_assistant.py`) for queries.
+   - Calendar events (`calendar_scheduler.py`) for scheduling.
+   - Slack notifications (`slack_notifier.py`) for updates.
+   - Email replies with confirmation or auto-send for safe senders.
+4. **External Services**: Managed via `gmail_auth.py` (Gmail/Calendar) and `.env` (Slack).
+
+### Diagram
+[Architecture Diagram](https://drive.google.com/file/d/your-diagram-id/view?usp=sharing)  
+*(Create using draw.io and upload to Google Drive or GitHub)*  
+- Components: Gmail API → SQLite → LLM (BART/DistilBERT) → Actions (Calendar, Slack, Reply).
+
+## Setup Instructions
+1. **Clone Repository**:
+   ```bash
+   git clone https://github.com/Ajith-Kumar-Nelliparthi/ajith-kumar-nelliparthi-wasserstoff-AiInternTask.git
+   cd ajith-kumar-nelliparthi-wasserstoff-AiInternTask\src
+   ```
+
+2. Install Dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Google Cloud Setup:
+- Enable Gmail API, Google Calendar API in [Google Cloud Console](https://console.cloud.google.com/welcome?invt=AbuAOA&project=email-assistant-455517).
+- Create OAuth 2.0 Client ID (Desktop app), set redirect URI to http://localhost:8080/.
+- Download credentials.json to src/.
+
+4. Slack Setup:
+- Create Slack app, add Bot User, and install Slack API.
+- Set Bot User OAuth Access Token in src/.env.
+```
+SLACK_BOT_TOKEN=xoxb-your-token
+```
+5. Run the Assistant:
+```bash
+python controllers/email_drafter.py
+```
+
+
 ## Project Structure
 ```
 src/

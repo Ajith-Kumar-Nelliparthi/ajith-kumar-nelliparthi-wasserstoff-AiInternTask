@@ -18,6 +18,7 @@ and schedule events based on email content.
 - **Day 6: Automated Replies**: Drafts and sends email replies, with auto-send for trusted senders and manual confirmation otherwise.
 
 ## Project Structure
+```
 src/
 ├── controllers/
 │   └── email_drafter.py          # Orchestrates the assistant workflow
@@ -37,7 +38,7 @@ src/
 ├── .env                         # Environment variables (Slack token)
 ├── requirements.txt             # Dependencies
 └── README.md                    # Technical documentation
-
+```
 
 ## Day 1: Email Integration with Gmail API
 

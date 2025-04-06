@@ -29,9 +29,34 @@ and schedule events based on email content.
 4. **External Services**: Managed via `gmail_auth.py` (Gmail/Calendar) and `.env` (Slack).
 
 ### Diagram
-[Architecture Diagram](https://drive.google.com/file/d/your-diagram-id/view?usp=sharing)  
-*(Create using draw.io and upload to Google Drive or GitHub)*  
+![alt text](diagram.jpg)
 - Components: Gmail API → SQLite → LLM (BART/DistilBERT) → Actions (Calendar, Slack, Reply).
+
+### Description
+The architecture diagram illustrates the components and data flow of the Email Assistant prototype, a command-line tool that automates email processing, analysis, and actions.
+
+#### Components
+- **Gmail API**: The entry point, accessed via `services/gmail_auth.py`, fetches emails from the user’s inbox.
+- **EmailParser (`services/email_parser.py`)**: Parses email data (sender, subject, body) and stores it in SQLite.
+- **SQLite DB (`emails.db`)**: Stores email data for processing and retrieval.
+- **EmailAnalyzer (`services/email_analyzer.py`)**: Uses BART for summarization and DistilBERT for intent inference to understand email context.
+- **WebSearchAssistant (`services/web_search_assistant.py`)**: Queries the web to answer email questions, invoked by `EmailDrafter`.
+- **EmailDrafter (`controllers/email_drafter.py`)**: The central controller, orchestrating analysis and actions (scheduling, notifying, replying).
+- **CalendarScheduler (`services/calendar_scheduler.py`)**: Detects scheduling intent and creates events on Google Calendar.
+- **SlackNotifier (`services/slack_notifier.py`)**: Sends notifications to Slack channels.
+- **Google Calendar**: External service for event scheduling.
+- **Slack**: External service for notifications.
+- **Gmail Reply**: Sends automated replies via Gmail API.
+
+#### Data Flow
+1. **Email Fetching**: The process begins with `EmailParser` fetching emails from the Gmail API and storing them in `emails.db`.
+2. **Analysis**: `EmailAnalyzer` retrieves email data from SQLite, summarizes threads, and infers intent (e.g., scheduling request).
+3. **Decision & Actions**: `EmailDrafter` processes the analysis:
+   - If a query is detected, it invokes `WebSearchAssistant` for answers.
+   - If scheduling intent is found, `CalendarScheduler` creates a Google Calendar event.
+   - Notifications are sent via `SlackNotifier` to Slack.
+   - A reply is drafted and sent via Gmail API, with manual confirmation or auto-send for safe senders.
+4. **Output**: Results are reflected in Google Calendar (events), Slack (messages), and Gmail (sent replies).
 
 ## Setup Instructions
 1. **Clone Repository**:

@@ -1,9 +1,9 @@
 import base64
 import logging
 from email.mime.text import MIMEText
-from gmail_auth import GmailAuthenticator
-from calendar_scheduler import CalendarScheduler
-from email_analyzer import EmailAnalyzer
+from services.gmail_auth import GmailAuthenticator
+from services.calendar_scheduler import CalendarScheduler
+from services.email_analyzer import EmailAnalyzer
 
 # Set up logging
 logging.basicConfig(filename='replies.log', level=logging.INFO, 

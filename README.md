@@ -17,6 +17,24 @@ and schedule events based on email content.
 - **Day 5: Calendar Scheduling**: Detects scheduling intent and creates Google Calendar events.
 - **Day 6: Automated Replies**: Drafts and sends email replies, with auto-send for trusted senders and manual confirmation otherwise.
 
+## Project Structure
+```
+src/
+├── day_01_email_integration.py  # Main script for email integration
+├── gmail_auth.py                # OAuth 2.0 authentication class
+├── day_02_email_parsing_storing.py  # Day 2 Script
+├── email_analyzer.py                # context understanding with LLM
+├── web_search_assistant.py          # Web search with Google Custom Search API
+├── slack_notifier.py               # Slack notification integration 
+├── calendar_scheduler.py           # Calendar scheduling integration
+├── email_drafter.py                # Automated reply generation
+├── credentials.json               # Google Cloud OAuth credentials
+├── token.json                     # Auto-generated after first 
+├── emails.db                      # sqlite database
+└── requiements.txt                # pip requirements
+└── README.md                    
+```
+
 
 ## Day 1: Email Integration with Gmail API
 
@@ -323,23 +341,3 @@ python email_drafter.py
 Output example:
 ![alt text](<Screenshot 2025-04-06 100920.png>)
 
-
-
-
-## Project Structure
-```
-src/
-├── day_01_email_integration.py  # Main script for email integration
-├── gmail_auth.py                # OAuth 2.0 authentication class
-├── day_02_email_parsing_storing.py  # Day 2 Script
-├── email_analyzer.py                # context understanding with LLM
-├── web_search_assistant.py          # Web search with Google Custom Search API
-├── slack_notifier.py               # Slack notification integration 
-├── calendar_scheduler.py           # Calendar scheduling integration
-├── email_drafter.py                # Automated reply generation
-├── credentials.json               # Google Cloud OAuth credentials
-├── token.json                     # Auto-generated after first 
-├── emails.db                      # sqlite database
-└── requiements.txt                # pip requirements
-└── README.md                    
-```

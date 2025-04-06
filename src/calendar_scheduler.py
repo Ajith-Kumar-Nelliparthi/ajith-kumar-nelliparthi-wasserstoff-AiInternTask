@@ -1,18 +1,16 @@
 import sqlite3
 from datetime import datetime, timedelta
-from googleapiclient.discovery import build
-from gmail_auth import GmailAuthenticator
 from email_analyzer import EmailAnalyzer
 
 class CalendarScheduler:
     """Class to schedule events on Google Calendar based on email content."""
 
-    def __init__(self, db_path='emails.db'):
+    def __init__(self, authenticator, db_path='emails.db'):
         """Initialize with database, Calendar service, and LLM analyzer."""
         print("Initializing CalendarScheduler...")
         self.conn = sqlite3.connect(db_path)
-        self.service = GmailAuthenticator().get_service('calendar', 'v3')
-        self.analyzer = EmailAnalyzer(db_path=db_path)
+        self.service = authenticator.get_service('calendar', 'v3')  # Use shared authenticator
+        self.analyzer = EmailAnalyzer(authenticator, db_path=db_path)  # Pass authenticator
 
     def get_email_content(self, email_id):
         """Retrieve email content from the database."""
@@ -97,7 +95,9 @@ class CalendarScheduler:
         self.analyzer.close()
 
 if __name__ == '__main__':
-    scheduler = CalendarScheduler()
+    from gmail_auth import GmailAuthenticator  # Import for standalone testing
+    authenticator = GmailAuthenticator()  # Create instance for testing
+    scheduler = CalendarScheduler(authenticator)  # Pass authenticator
     email_id = '195fafee3c89c982'
     scheduler.create_calendar_event(email_id)
     scheduler.close()

@@ -1,16 +1,16 @@
 import sqlite3
 import base64
 from transformers import pipeline
-from gmail_auth import GmailAuthenticator
+# from gmail_auth import GmailAuthenticator
 
 class EmailAnalyzer:
     """class to analyze email content using Hugging Face Transformers."""
 
-    def __init__(self, db_path='emails.db', model_name='distilbert-base-uncased'):
+    def __init__(self, authenticator, db_path='emails.db', model_name='distilbert-base-uncased'):
         """Initialize the EmailAnalyzer with a database path and model name."""
         """initalize database connection and llm pipeline"""
         self.conn = sqlite3.connect(db_path)
-        self.service = GmailAuthenticator().get_service()
+        self.service = authenticator.get_service()
         self.summarizer = pipeline("summarization", model="facebook/bart-large-cnn", framework="pt")
         self.classifier = pipeline("text-classification", model="distilbert-base-uncased-finetuned-sst-2-english", framework="pt")
 
@@ -70,7 +70,9 @@ class EmailAnalyzer:
 
 
 if __name__ == "__main__":
-    analyzer = EmailAnalyzer()
+    from gmail_auth import GmailAuthenticator
+    authenticator = GmailAuthenticator()
+    analyzer = EmailAnalyzer(authenticator)
     thread_id = '195f60b397c7396d'
     email_id = '195f60b397c7396d'
     analyzer.analyze_and_report(thread_id, email_id)

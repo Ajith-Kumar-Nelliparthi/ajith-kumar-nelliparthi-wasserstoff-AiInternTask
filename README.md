@@ -9,6 +9,15 @@ interacting with external tools (web search, Slack, calendar) to assist with ema
 The assistant should be able to automatically draft or send replies, forward information, 
 and schedule events based on email content.
 
+## Features
+- **Day 1-2: Email Parsing & Storage**: Parses Gmail emails and stores them in `emails.db`.
+- **Day 3: Context Understanding**: Summarizes email threads and infers intent using BART and DistilBERT.
+- **Day 4: Web Search**: Answers email queries with web search results.
+- **Day 5: Slack Notifications**: Sends updates to Slack channels.
+- **Day 5: Calendar Scheduling**: Detects scheduling intent and creates Google Calendar events.
+- **Day 6: Automated Replies**: Drafts and sends email replies, with auto-send for trusted senders and manual confirmation otherwise.
+
+
 ## Day 1: Email Integration with Gmail API
 
 This project is part of a multi-day task to build an AI-powered personal email assistant. On **Day 1**, I implemented email integration using the Gmail API to authenticate and fetch emails from a Gmail inbox. This README outlines the setup process, how to run the script, and what was accomplished.
@@ -273,6 +282,47 @@ self.SCOPES = [
 ``` python calendar_scheduler.py ```
 ` Creates an event for email 195fafee3c89c982 if scheduling intent is detected.
 
+Output example:
+![alt text](<Screenshot 2025-04-05 212219.png>)
+
+
+## Day 6: Automated Reply Generation
+
+### Objective
+- **Automated Reply Generation**: Draft and send replies for emails the assistant can handle (e.g., scheduling requests).
+
+### What Was Completed
+- **Task: EmailDrafter Class** (`email_drafter.py`):
+  - **Implementation**: Uses Gmail API to send replies, `CalendarScheduler` to book meetings, and `EmailAnalyzer` for intent and drafting.
+  - **Functionality**:
+    - Detects reply-worthy emails (e.g., scheduling requests).
+    - Drafts polite responses with LLM (proposes meeting times if booked).
+    - Sends via Gmail API with safeguards: auto-send for safe senders, logs to `replies.log`, and prompts confirmation otherwise.
+  - **Safeguards**: Whitelist (`safe_senders`), logging, and manual confirmation for non-safe cases.
+
+### Setup Instructions
+- **Dependencies**: Same as previous days (`google-api-python-client`, `transformers`, `torch`, etc.).
+- **Gmail API**:
+  - Scope `https://www.googleapis.com/auth/gmail.send` already added in `gmail_auth.py`.
+  - Re-authenticate if needed:
+    ```bash
+    del src\token.json
+    python email_drafter.py
+    ```
+- **Update `emails.db`** (for testing):
+  ```bash
+  sqlite3 src/emails.db "UPDATE emails SET body = 'Please schedule a meeting on Friday at 2pm' WHERE id = '195fafee3c89c982';"
+
+### Running the Script
+- Draft and Send Reply:
+```bash
+python email_drafter.py
+```
+- Checks email 195fafee3c89c982, drafts a reply, and prompts for confirmation unless sender is in safe_senders.
+
+Output example:
+![alt text](<Screenshot 2025-04-06 100920.png>)
+
 
 
 
@@ -286,6 +336,7 @@ src/
 ├── web_search_assistant.py          # Web search with Google Custom Search API
 ├── slack_notifier.py               # Slack notification integration 
 ├── calendar_scheduler.py           # Calendar scheduling integration
+├── email_drafter.py                # Automated reply generation
 ├── credentials.json               # Google Cloud OAuth credentials
 ├── token.json                     # Auto-generated after first 
 ├── emails.db                      # sqlite database

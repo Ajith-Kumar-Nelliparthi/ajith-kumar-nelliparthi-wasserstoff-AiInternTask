@@ -85,7 +85,7 @@ python -m controllers.email_drafter
 ```
 
 ## Video Demo
-[Watch Here](https://drive.google.com/file/d/1CwvAPLiTrEDyZt5cp9YUp_BrRhdbwE0A/view?usp=sharing)
+[Watch Here](https://drive.google.com/file/d/1P6kAbZzJEh6UYI5SSoCLuFatDcg7EHxE/view?usp=drive_link)
 
 ## Notes
 - CLI-based; hosting skipped as it’s not a web app.

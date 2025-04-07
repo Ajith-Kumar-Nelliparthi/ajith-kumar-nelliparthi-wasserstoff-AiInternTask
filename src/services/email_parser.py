@@ -1,7 +1,7 @@
 import base64
 import sqlite3
 from datetime import datetime
-from gmail_auth import GmailAuthenticator
+from services.gmail_auth import GmailAuthenticator
 import html2text
 
 class EmailManager:

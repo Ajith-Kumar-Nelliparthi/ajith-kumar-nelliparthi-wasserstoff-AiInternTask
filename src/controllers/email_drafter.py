@@ -100,7 +100,7 @@ class EmailDrafter:
         else:
             # Require confirmation
             confirmation = input(f"Send this reply? (y/n): {draft['body']}\n> ")
-            if confirmation.lower() == 'y':
+            if confirmation.lower() == 'yes' or confirmation.lower() == 'y':
                 message = MIMEText(draft['body'])
                 message['to'] = draft['to']
                 message['subject'] = draft['subject']
@@ -127,7 +127,7 @@ class EmailDrafter:
 
 if __name__ == '__main__':
     drafter = EmailDrafter()
-    email_id = '195fafee3c89c982'
+    email_id = '1960ff6580cb6e25'
     if drafter.should_reply(email_id):
         drafter.send_reply(email_id, auto_send=False)  # Set to True for safe senders
     else:

@@ -1,5 +1,3 @@
-# ajith-kumar-nelliparthi-wasserstoff-AiInternTask
-
 # AI Personal Email Assistant
 
 ## Objective: 
@@ -82,9 +80,24 @@ SLACK_BOT_TOKEN=xoxb-your-token
 ```
 5. Run the Assistant:
 ```bash
-python controllers/email_drafter.py
+cd src
+python -m controllers.email_drafter
 ```
 
+## Video Demo
+[Watch Here](https://drive.google.com/file/d/1CwvAPLiTrEDyZt5cp9YUp_BrRhdbwE0A/view?usp=sharing)
+
+## Notes
+- CLI-based; hosting skipped as it’s not a web app.
+
+## AI Coding Assistant Usage
+I used Grok 3 by xAI throughout this project to boost productivity:
+- **Day 1-2**: Helped set up Gmail API auth (`gmail_auth.py`) and email parsing (`email_parser.py`), fixing OAuth errors like `redirect_uri_mismatch`.
+- **Day 3**: Guided LLM integration (`email_analyzer.py`), suggesting BART/DistilBERT for summarization/intent.
+- **Day 4-5**: Assisted with web search (`web_search_assistant.py`), Slack (`slack_notifier.py`), and calendar scheduling (`calendar_scheduler.py`), resolving time parsing bugs (e.g., `ValueError: time data '2025-04-11T2pmto:00'`).
+- **Day 6**: Debugged reply logic (`email_drafter.py`), fixing confirmation (`y/yes`) and import issues post-restructure.
+- **Submission**: Provided step-by-step fixes (e.g., `ModuleNotFoundError`), video recording alternatives, and this documentation.
+- **Impact**: Grok accelerated debugging, offered code structure ideas, and saved hours on API setups—critical for the tight sprint.
 
 ## Project Structure
 ```

@@ -1,6 +1,6 @@
 import sqlite3
 from datetime import datetime, timedelta
-from email_analyzer import EmailAnalyzer
+from services.email_analyzer import EmailAnalyzer
 
 class CalendarScheduler:
     """Class to schedule events on Google Calendar based on email content."""
@@ -49,10 +49,18 @@ class CalendarScheduler:
         time = '10:00'  # Default morning meeting
         for line in body.split('\n'):
             if 'on' in line.lower():
-                if 'friday' in line.lower():  # Basic example
+                if 'friday' in line.lower():
                     date = (datetime.now() + timedelta(days=(4 - datetime.now().weekday()) % 7)).strftime('%Y-%m-%d')
                 if 'at' in line.lower():
-                    time = line.split('at')[-1].strip().replace(' ', '')[:5]  # e.g., "at 2pm" -> "14:00"
+                    time_str = line.split('at')[-1].strip().lower()
+                    if 'pm' in time_str:
+                        hour = int(time_str.split('pm')[0].strip()) + 12  # Convert PM to 24h
+                        time = f"{hour:02d}:00"
+                    elif 'am' in time_str:
+                        hour = int(time_str.split('am')[0].strip())
+                        time = f"{hour:02d}:00"
+                    else:
+                        time = time_str[:5]  # Fallback for "HH:MM"
 
         event_details = {'title': title, 'date': date, 'time': time}
         print(f"Detected scheduling intent: {event_details}")
@@ -98,6 +106,6 @@ if __name__ == '__main__':
     from gmail_auth import GmailAuthenticator  # Import for standalone testing
     authenticator = GmailAuthenticator()  # Create instance for testing
     scheduler = CalendarScheduler(authenticator)  # Pass authenticator
-    email_id = '195fafee3c89c982'
+    email_id = '1960ff6580cb6e25'
     scheduler.create_calendar_event(email_id)
     scheduler.close()
